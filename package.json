@@ -1,7 +1,7 @@
 {
-  "name": "glint",
+  "name": "glint-lib",
   "version": "0.0.1",
-  "description": "Got Glint? A JavaScript Apache Spark-like system for RDDs",
+  "description": "Glint Client Library",
   "author": "Michael Laccetti <michael@laccetti.com> (https://laccetti.com)",
   "homepage": "https://github.com/mlaccetti/glint/",
   "repository": {
@@ -12,10 +12,28 @@
     "url": "https://github.com/mlaccetti/glint/issues"
   },
   "license": "LGPL-2.1",
-  "devDependencies": {
-    "gulp": "3.9.1",
-    "gulp-hub": "0.8.0"
-  },
   "dependencies": {
+    "binary-pack": "1.0.2",
+    "bufferutil": "^1.2.1",
+    "intel": "^1.1.1",
+    "jsonfn": "^0.31.0",
+    "node-uuid": "1.4.7",
+    "primus": "6.0.0",
+    "ws": "1.1.1"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "main": "src/index.js",
+  "files": [
+    "src/index.js"
+  ],
+  "devDependencies": {
+    "del": "2.2.1",
+    "eslint": "3.1.1",
+    "gulp": "3.9.1",
+    "gulp-eslint": "3.0.1",
+    "gulp-mocha": "2.2.0",
+    "run-sequence": "1.2.2"
   }
 }
