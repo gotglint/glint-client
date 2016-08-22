@@ -1,15 +1,15 @@
 {
-  "name": "glint-lib",
+  "name": "glint-client",
   "version": "0.0.1",
   "description": "Glint Client Library",
   "author": "Michael Laccetti <michael@laccetti.com> (https://laccetti.com)",
-  "homepage": "https://github.com/mlaccetti/glint/",
+  "homepage": "https://github.com/gotglint/glint-client/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mlaccetti/glint.git"
+    "url": "https://github.com/gotglint/glint-client.git"
   },
   "bugs": {
-    "url": "https://github.com/mlaccetti/glint/issues"
+    "url": "https://github.com/gotglint/glint-client/issues"
   },
   "license": "LGPL-2.1",
   "dependencies": {
@@ -18,7 +18,7 @@
     "intel": "^1.1.1",
     "jsonfn": "^0.31.0",
     "node-uuid": "1.4.7",
-    "primus": "6.0.0",
+    "primus": "6.0.1",
     "ws": "1.1.1"
   },
   "engines": {
@@ -29,11 +29,11 @@
     "src/index.js"
   ],
   "devDependencies": {
-    "del": "2.2.1",
-    "eslint": "3.1.1",
+    "del": "2.2.2",
+    "eslint": "3.3.1",
     "gulp": "3.9.1",
     "gulp-eslint": "3.0.1",
-    "gulp-mocha": "2.2.0",
+    "gulp-mocha": "3.0.1",
     "run-sequence": "1.2.2"
   }
 }
