@@ -33,11 +33,15 @@
     "src/index.js"
   ],
   "devDependencies": {
+    "chai": "^3.5.0",
     "del": "2.2.2",
     "eslint": "3.3.1",
     "gulp": "3.9.1",
     "gulp-eslint": "3.0.1",
+    "gulp-istanbul": "^1.1.0",
     "gulp-mocha": "3.0.1",
+    "intel": "^1.1.1",
+    "mocha-lcov-reporter": "^1.2.0",
     "run-sequence": "1.2.2"
   }
 }
