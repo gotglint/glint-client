@@ -29,7 +29,6 @@ gulp.task('coverage', ['lint'], () => {
     .pipe(istanbul.hookRequire());
 });
 
-
 gulp.task('test:coverage', ['lint', 'coverage'], () => {
   return gulp.src('./test/unit/**/*.js')
     .pipe(mocha({
