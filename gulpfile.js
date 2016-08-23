@@ -39,17 +39,20 @@ gulp.task('test:coverage', ['lint', 'coverage'], () => {
       timeout:  10000
     }))
     .pipe(istanbul.writeReports({
-      reporters: ['lcov', 'text-summary']
+      reporters: ['lcov']
     }));
 });
 
-gulp.task('test', ['lint'], () => {
+gulp.task('test', ['lint', 'coverage'], () => {
   return gulp.src('./test/unit/**/*.js')
     .pipe(mocha({
       reporter: 'spec',
       quiet:    false,
       colors:   true,
       timeout:  10000
+    }))
+    .pipe(istanbul.writeReports({
+      reporters: ['text-summary']
     }));
 });
 
