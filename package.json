@@ -25,7 +25,7 @@
     "intel": "1.1.1",
     "jsonfn": "0.31.0",
     "node-uuid": "1.4.7",
-    "primus": "6.0.1",
+    "primus": "6.0.2",
     "ws": "1.1.1"
   },
   "engines": {
@@ -38,10 +38,10 @@
   "devDependencies": {
     "chai": "3.5.0",
     "del": "2.2.2",
-    "eslint": "3.3.1",
+    "eslint": "3.4.0",
     "gulp": "3.9.1",
     "gulp-eslint": "3.0.1",
-    "gulp-istanbul": "1.1.0",
+    "gulp-istanbul": "1.1.1",
     "gulp-mocha": "3.0.1",
     "intel": "1.1.1",
     "mocha-lcov-reporter": "1.2.0",
