@@ -10,10 +10,22 @@ const mocha = require('gulp-mocha');
 
 // utilities
 const del = require('del');
+const exec = require('child_process').exec;
 const runSequence = require('run-sequence');
+
+// package info
+const pkginfo = require('./package.json');
 
 gulp.task('clean', () => {
   return del(['dist/**', 'coverage/**']);
+});
+
+gulp.task('docs', function(done) {
+  exec(`mr-doc -n "${pkginfo.description} ${pkginfo.version} API Reference" -s src --theme glint`, function(err, stdout, stderr) {
+    console.log(stdout);
+    console.log(stderr);
+    done(err);
+  });
 });
 
 gulp.task('lint', () => {
@@ -66,7 +78,7 @@ gulp.task('default', (callback) => {
 });
 
 gulp.task('ci', (callback) => {
-  runSequence('clean', 'build', 'test:coverage', callback);
+  runSequence('clean', 'build', 'test:coverage', 'docs', callback);
 });
 
 gulp.task('dist', ['default']);
