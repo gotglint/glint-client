@@ -1,5 +1,5 @@
 {
-  "name": "glint-client",
+  "name": "@gotglint/glint-client",
   "version": "0.0.1",
   "description": "Glint Client Library",
   "author": "Michael Laccetti <michael@laccetti.com> (https://laccetti.com)",
