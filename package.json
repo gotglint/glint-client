@@ -11,7 +11,7 @@
   "bugs": {
     "url": "https://github.com/gotglint/glint-client/issues"
   },
-  "license": "LGPL-2.1",
+  "license": "GPL-3",
   "scripts": {
     "build": "$(which gulp)",
     "watch": "$(which gulp) watch",
