@@ -80,7 +80,7 @@ class GlintClient {
     });
 
     this[_client].on('data', (data) => {
-      this[_log].info('Client received data.');
+      this[_log].info('Client received response message from the Glint cluster.');
       this[_log].verbose('Data received: ', data);
 
       const deserializedData = JSONfn.parse(data);
@@ -194,7 +194,7 @@ class GlintClient {
   waitForJob() {
     return new Promise((resolve/*, reject*/) => {
       this[_emitter].on('job-complete', (data) => {
-        this[_log].debug('Job wait complete - returning.');
+        this[_log].info('Job completed - returning data.');
         this[_running] = false;
         resolve({status:'complete', data: data});
       });
