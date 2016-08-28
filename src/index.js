@@ -17,6 +17,7 @@ const _operations = Symbol('operations');
 const _client = Symbol('client');
 
 const _connected = Symbol('connected');
+const _running = Symbol('running');
 
 const _emitter = Symbol('emitter');
 
@@ -44,6 +45,7 @@ class GlintClient {
     this[_port] = port;
 
     this[_connected] = false;
+    this[_running] = false;
 
     this[_emitter] = new EventEmitter();
   }
@@ -100,6 +102,22 @@ class GlintClient {
     });
 
     return promise;
+  }
+
+  /**
+   * Reset the client, so you can send a completely new job
+   *
+   * @throws Error if there is a job running
+   */
+  reset() {
+    if (this[_running] === true) {
+      const message = 'A job is executing - please wait until it has finished to attempt a reset.';
+      this[_log].warn(message);
+      throw new Error(message);
+    }
+
+    this[_data] = null;
+    this[_operations] = [];
   }
 
   /**
@@ -162,6 +180,7 @@ class GlintClient {
 
     // submit the info to the server, return a promise?  an ID?
     if (this[_connected] === true) {
+      this[_running] = true;
       this[_log].debug('Sending job request to the master.');
       const message = this.getData();
       message.type = 'job-request';
@@ -176,6 +195,7 @@ class GlintClient {
     return new Promise((resolve/*, reject*/) => {
       this[_emitter].on('job-complete', (data) => {
         this[_log].debug('Job wait complete - returning.');
+        this[_running] = false;
         resolve({status:'complete', data: data});
       });
     });
