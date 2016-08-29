@@ -9,6 +9,8 @@ npm i @gotglint/glint-client
 ## Using
 
 ```nodejs
+const GlintClient = require('glint-client');
+
 console.log('Creating Glient client.');
 const glintClient = new GlintClient('localhost', 45468);
 
