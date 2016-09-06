@@ -33,7 +33,8 @@
   },
   "main": "src/index.js",
   "files": [
-    "src/index.js"
+    "src/index.js",
+    "src/ws-chunker.js"
   ],
   "devDependencies": {
     "chai": "3.5.0",

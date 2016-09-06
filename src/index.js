@@ -1,8 +1,9 @@
 const EventEmitter = require('events');
 const intel = require('intel');
-const JSONfn = require('jsonfn').JSONfn;
 const Primus = require('primus');
 const uuid = require('node-uuid');
+
+const WebSocketChunker = require('./ws-chunker');
 
 const _log = Symbol('log');
 
@@ -20,6 +21,8 @@ const _connected = Symbol('connected');
 const _running = Symbol('running');
 
 const _emitter = Symbol('emitter');
+
+const _chunker = Symbol('chunker');
 
 /** The way to invoke and interact with Glint */
 class GlintClient {
@@ -48,6 +51,8 @@ class GlintClient {
     this[_running] = false;
 
     this[_emitter] = new EventEmitter();
+
+    this[_chunker] = new WebSocketChunker(1024*1000);
   }
 
   init() {
@@ -79,21 +84,23 @@ class GlintClient {
       reject(err);
     });
 
+    this[_chunker].registerCallback((deserialized) => {
+      if (deserialized && deserialized.type && deserialized.type === 'job-complete') {
+        this[_log].debug('Job completed, emitting event.');
+        this[_emitter].emit('job-complete', deserialized.data);
+      }
+
+      if (deserialized && deserialized.type && deserialized.type === 'job-response') {
+        // we currently don't do anything with this, though it should be used to confirm the job submission
+        // const jobId = deserializedData.jobId;
+      }
+    });
+
     this[_client].on('data', (data) => {
       this[_log].info('Client received response message from the Glint cluster.');
       this[_log].verbose('Data received: ', data);
 
-      const deserializedData = JSONfn.parse(data);
-
-      if (deserializedData && deserializedData.type && deserializedData.type === 'job-response') {
-        // we currently don't do anything with this, though it should be used to confirm the job submission
-        // const jobId = deserializedData.jobId;
-      }
-
-      if (deserializedData && deserializedData.type && deserializedData.type === 'job-complete') {
-        this[_log].debug('Job completed, emitting event.');
-        this[_emitter].emit('job-complete', deserializedData.data);
-      }
+      this[_chunker].onMessage(data);
     });
 
     this[_client].on('end', () => {
@@ -184,8 +191,7 @@ class GlintClient {
       this[_log].debug('Sending job request to the master.');
       const message = this.getData();
       message.type = 'job-request';
-      const serializedMessage = JSONfn.stringify(message);
-      this[_client].write(serializedMessage);
+      this[_chunker].sendMessage(this[_client], message);
     } else {
       throw new Error('Glint is not connected to the server; try to fire off `init` first?');
     }
