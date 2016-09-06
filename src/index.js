@@ -219,4 +219,4 @@ class GlintClient {
   }
 }
 
-module.exports = GlintClient;
+module.exports = {GlintClient: GlintClient, WebSocketChunker: WebSocketChunker};
