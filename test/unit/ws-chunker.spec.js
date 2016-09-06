@@ -12,11 +12,12 @@ describe('test the websocket chunker', function() {
   let deserialized = null;
 
   before(function() {
+    // this acts as a mock spark
     spark = {
       write: (_data) => {
         data.push(_data);
       }
-    }
+    };
   });
 
   after(function() {
